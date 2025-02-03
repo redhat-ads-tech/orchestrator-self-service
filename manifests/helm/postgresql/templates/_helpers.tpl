@@ -55,7 +55,7 @@ Create the name of the service account to use
 */}}
 {{- define "postgresql.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "postgresql.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "postgresql.name" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
