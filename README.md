@@ -1,3 +1,3 @@
-# Postgres Database Software Template
+# Software Templates for Developer Self Service
 
-This repository contains the Backstage Template which provides a self-service PostgreSQL database.
+This repository contains the Backstage Templates which provide self-service capabilities for developers
