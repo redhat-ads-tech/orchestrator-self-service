@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: ${{ values.source_repository_gitops }}
     targetRevision: HEAD
-    path: namespace-small
+    path: ${{ values.source_repository_path }}
     helm:
       valuesObject:
         nameOverride: ${{ values.component_id }}
@@ -21,6 +21,8 @@ spec:
           user:
             name: ${{ values.owner }}
             role: ${{ values.owner_role }}
+        namespace:
+          size: ${{ values.namespace_size }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.component_id }}

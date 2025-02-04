@@ -12,8 +12,8 @@ metadata:
     backstage.io/techdocs-ref: url:https://${{values.git_host}}/${{values.git_destination}}
     gitlab.com/project-slug: ${{values.git_destination}}
   tags:
-    - database
-    - postgres
+    - namespace
+    - project
   links: []
 spec:
   type: project

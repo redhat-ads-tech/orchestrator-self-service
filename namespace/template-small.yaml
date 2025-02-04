@@ -3,7 +3,7 @@ kind: Template
 metadata:
   name: namespace-small
   title: OpenShift Namespace Small Size
-  description: Creates an OpenShift Namespace Small. Recommended for Developers.
+  description: Creates an OpenShift Namespace Small. Recommended for Development.
   tags:
     - project
     - namespace
@@ -13,8 +13,7 @@ spec:
   parameters:
     - title: Provide Information about the OpenShift Namespace
       required:
-        - namespace
-        - user
+        - component_id
       properties:
         component_id:
           title: Namespace
@@ -30,8 +29,10 @@ spec:
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
           source_repository_gitops: https://github.com/btison/pew-helm-charts.git
+          source_repository_path: namespace-small
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ parameters.component_id }}' }}
+          namespace_size: small
           gitops_namespace: {{ rhdh_gitops_namespace }}
           gitops_project: {{ rhdh_gitops_project }}
           git_host: {{ gitlab_host }}
