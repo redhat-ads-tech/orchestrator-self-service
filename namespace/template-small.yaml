@@ -29,7 +29,7 @@ spec:
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
           source_repository_gitops: https://github.com/btison/pew-helm-charts.git
-          source_repository_path: namespace-small
+          source_repository_path: namespace
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ parameters.component_id }}' }}
           namespace_size: small
