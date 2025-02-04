@@ -16,7 +16,7 @@ metadata:
     - postgres
   links: []
 spec:
-  type: service
+  type: application-capabilities
   lifecycle: development
   owner: ${{values.owner | dump}}
   providesApis: []
