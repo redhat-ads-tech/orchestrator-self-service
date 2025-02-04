@@ -35,7 +35,7 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: {{ '${{ parameters.component_id }}' }}
-          source_repository_gitops: https://{{ gitlab_host }}/{{ '${{ user.entity.metadata.name }}' }}/{{ '${{parameters.component_id}}' }}-gitops.git
+          source_repository_gitops: https://github.com/btison/pew-helm-charts.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
           namespace: {{ '${{ parameters.namespace }}' }}
           gitops_namespace: {{ rhdh_gitops_namespace }}
