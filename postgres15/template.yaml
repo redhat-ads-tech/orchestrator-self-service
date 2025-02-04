@@ -1,17 +1,17 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: postgres-template
-  title: Postgres Database
-  description: Deploy a Postgres Database to an existing namespace
+  name: postgres-15-template
+  title: Postgres 15 Database
+  description: Deploy a Postgres 15 Database to an existing namespace
   tags:
     - application-components
     - postgres
 spec:
   owner: rhdh
-  type: service
+  type: application-capabilities
   parameters:
-    - title: Provide Information for Postgres Database
+    - title: Provide Information for Postgres 15 Database
       required:
         - namespace
       properties:
