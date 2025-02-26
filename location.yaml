@@ -8,3 +8,4 @@ spec:
     - ./postgres15/template.yaml
     - ./namespace/template-small.yaml
     - ./namespace/template-medium.yaml
+    - ./namespace/template-large.yaml
