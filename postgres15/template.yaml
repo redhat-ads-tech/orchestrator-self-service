@@ -13,6 +13,7 @@ spec:
   parameters:
     - title: Provide Information for Postgres 15 Database
       required:
+        - component_id
         - namespace
       properties:
         component_id:
@@ -26,6 +27,11 @@ spec:
           title: Namespace
           type: string
           description: Namespace to which the Postgres database instance will be deployed
+          ui:field: OwnedEntityPicker
+          ui:options:
+            catalogFilter:
+              - spec.type: project
+                kind: component
   steps:
     - id: template-gitops-deployment
       name: Generating Deployment Resources
@@ -37,7 +43,7 @@ spec:
           component_id: {{ '${{ parameters.component_id }}' }}
           source_repository_gitops: https://github.com/btison/pew-helm-charts.git
           owner: {{ '${{ user.entity.metadata.name }}' }}
-          namespace: {{ '${{ parameters.namespace }}' }}
+          namespace: {{ '${{ parameters.namespace | replace("component:default/", "") }}' }}
           gitops_namespace: {{ rhdh_gitops_namespace }}
           gitops_project: {{ rhdh_gitops_project }}
           git_host: {{ gitlab_host }}
