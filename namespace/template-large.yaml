@@ -7,6 +7,8 @@ metadata:
   tags:
     - project
     - namespace
+  annotations:
+    backstage.io/managed-by: orchestrator
 spec:
   owner: rhdh
   type: project
