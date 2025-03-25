@@ -10,7 +10,7 @@ metadata:
   annotations:
     backstage.io/managed-by: orchestrator
 spec:
-  owner: rhdh
+  owner: group:default/rhdh
   type: project
   parameters:
     - title: Provide Information about the OpenShift Namespace

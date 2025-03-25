@@ -8,7 +8,7 @@ metadata:
     - project
     - namespace
 spec:
-  owner: rhdh
+  owner: group:default/rhdh
   type: project
   parameters:
     - title: Provide Information about the OpenShift Namespace

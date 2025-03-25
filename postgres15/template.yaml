@@ -8,7 +8,7 @@ metadata:
     - application-components
     - postgres
 spec:
-  owner: rhdh
+  owner: group:default/rhdh
   type: application-capabilities
   parameters:
     - title: Provide Information for Postgres 15 Database
