@@ -18,5 +18,5 @@ metadata:
 spec:
   type: application-capabilities
   lifecycle: development
-  owner: ${{values.owner | dump}}
+  owner: user:default/${{ values.owner }}
   providesApis: []
