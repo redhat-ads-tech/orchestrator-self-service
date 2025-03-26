@@ -17,6 +17,8 @@ spec:
     helm:
       valuesObject:
         nameOverride: ${{ values.component_id }}
+        backstage:
+          id: ${{ values.owner }}-${{ values.component_id }}
   destination:
     server: https://kubernetes.default.svc
     namespace: ${{ values.namespace }}
