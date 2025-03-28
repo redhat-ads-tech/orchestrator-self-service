@@ -25,7 +25,7 @@ spec:
         namespace_owner:
           title: Namespace Owner
           type: string
-          description: The OpenShift user who owns the namesapce
+          description: The OpenShift user who owns the namespace
   steps:
     - id: template-gitops-deployment
       name: Generating Deployment Resources
