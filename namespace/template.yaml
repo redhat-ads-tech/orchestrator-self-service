@@ -1,0 +1,99 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: orchestrator-namespace-request
+  title: OpenShift Namespace Request
+  description: Creates an OpenShift Namespae. Requires approval.
+  tags:
+    - project
+    - namespace
+    - orchestrator
+  annotations:
+    backstage.io/managed-by: orchestrator
+spec:
+  owner: group:default/tssc
+  type: project
+  parameters:
+    - title: Provide Information about the OpenShift Namespace
+      required:
+        - component_id
+        - namespace_owner
+      properties:
+        component_id:
+          title: Namespace
+          type: string
+          description: Unique name of the namespace
+        namespace_owner:
+          title: Namespace Owner
+          type: string
+          description: The OpenShift user who owns the namespace
+        git_host:
+          title: Namespace Owner
+          type: string
+          description: The OpenShift user who owns the namespace
+        namespace_size:
+          default: small
+          enum:
+            - small
+            - medium
+            - large
+          enumNames:
+            - 'Small (2vCPU / 8Gi)'
+            - 'Medium (3vCPU / 12Gi)'
+            - 'Large (6vCPU / 24Gi)'
+  steps:
+    - id: template-gitops-deployment
+      name: Generating Deployment Resources
+      action: fetch:template
+      input:
+        url: ./manifests
+        copyWithoutTemplating: []
+        values:
+          component_id: ${{ parameters.component_id }}
+          source_repository_gitops: https://github.com/evanshortiss/orchestrator-self-service-helm-charts.git
+          source_repository_path: namespace
+          owner: ${{ parameters.namespace_owner }}
+          namespace: ${{ parameters.component_id }}
+          namespace_size: ${{ parameters.namespace_size }}
+          gitops_namespace: openshift-gitops
+          gitops_project: default
+          git_host: ${{ parameters.git_host }}
+          git_destination: ${{ parameters.namespace_owner }}/${{ parameters.component_id }}-gitops
+          owner_role: admin
+        targetPath: ./${{ parameters.namespace_owner }}-${{ parameters.component_id }}-gitops
+
+    - id: publish
+      name: Publishing to Resource Repository
+      action: publish:gitlab
+      input:
+        repoUrl: "${{ parameters.git_host }}?owner=${{ parameters.namespace_owner }}&repo=${{ parameters.component_id }}-gitops"
+        repoVisibility: public
+        defaultBranch: main
+        title: gitops resources for ${{ parameters.component_id }}
+        description: gitops resources for ${{ parameters.component_id }}
+        sourcePath: ./${{ parameters.namespace_owner }}-${{ parameters.component_id }}-gitops
+
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        appName: ${{ parameters.component_id }}-bootstrap
+        argoInstance: main
+        namespace: openshift-gitops
+        repoUrl: https://${{ parameters.git_host }}/${{ parameters.namespace_owner }}/${{ parameters.component_id }}-gitops.git
+        path: 'argocd/'
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Source Code Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open Component in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
