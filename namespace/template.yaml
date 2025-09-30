@@ -50,7 +50,7 @@ spec:
         copyWithoutTemplating: []
         values:
           component_id: ${{ parameters.component_id }}
-          source_repository_gitops: https://github.com/evanshortiss/orchestrator-self-service-helm-charts.git
+          source_repository_gitops: https://github.com/redhat-ads-tech/orchestrator-self-service-helm-charts.git
           source_repository_path: namespace
           owner: ${{ parameters.namespace_owner }}
           namespace: ${{ parameters.component_id }}
